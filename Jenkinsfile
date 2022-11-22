@@ -22,14 +22,13 @@ pipeline {
                   sh '''#!/bin/bash
                   echo "Creating .ssh"
                   mkdir -p /var/lib/jenkins/.ssh
-                  ssh-keyscan 192.168.33.11 >> /var/lib/jenkins/.ssh/known_hosts
-                  ssh-keyscan 192.168.33.12 >> /var/lib/jenkins/.ssh/known_hosts
+                  ssh-keyscan 13.232.39.10 >> /var/lib/jenkins/.ssh/known_hosts
+                 
+                  rsync -avz --exclude  '.git' --delete -e "ssh -i $sshkey" ./ ec2-user@13.232.39.10:/app/
+                  
 
-                  rsync -avz --exclude  '.git' --delete -e "ssh -i $sshkey" ./ vagrant@192.168.33.11:/app/
-                  rsync -avz --exclude  '.git' --delete -e "ssh -i $sshkey" ./ vagrant@192.168.33.12:/app/
-
-                  ssh -i $sshkey vagrant@192.168.33.11 "sudo systemctl restart nodeapp"
-                  ssh -i $sshkey vagrant@192.168.33.12 "sudo systemctl restart nodeapp"
+                  ssh -i $sshkey ec2-user@13.232.39.10 "sudo systemctl restart mynode"
+      
                   '''
               }
           }
