@@ -18,7 +18,7 @@ pipeline {
           stage('deploy') {
               steps {
                   sh 'ssh ec2-user@13.232.39.10 'sudo mkdir -p /app; sudo chown -R ec2-user. /app''
-                  rsync -avz ./ ec2-user@13.232.39.10:/app/
+                  sh 'rsync -avz ./ ec2-user@13.232.39.10:/app/'
                    }
           }
 }
