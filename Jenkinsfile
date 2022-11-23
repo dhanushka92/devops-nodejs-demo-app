@@ -19,13 +19,8 @@ pipeline {
               steps {
                 
                   rsync -avz --exclude  '.git' --delete -e "ssh -v" ./ ec2-user@13.232.39.10:/app/
-                  
-
-                
- 
-              }
+                   }
           }
-      }
-    }
+}
 }
 
