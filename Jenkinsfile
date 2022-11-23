@@ -17,8 +17,8 @@ pipeline {
 
           stage('deploy') {
               steps {
-                
-                  rsync -avz --exclude  '.git' --delete -e "ssh -v" ./ ec2-user@13.232.39.10:/app/
+                  ssh ec2-user@13.232.39.10 'sudo mkdir -p /app; sudo chown -R ec2-user. /app'
+                  rsync -avz ./ ec2-user@13.232.39.10:/app/
                    }
           }
 }
